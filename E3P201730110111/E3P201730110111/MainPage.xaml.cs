@@ -18,5 +18,14 @@ namespace E3P201730110111
             InitializeComponent();
             BindingContext = new CreateViewModel(this);
         }
+
+        //protected override void OnAppearing()
+        //{
+        //    base.OnAppearing();
+
+        //    InitializeComponent();
+        //    BindingContext = new CreateViewModel(this);
+
+        //}
     }
 }

@@ -4,16 +4,6 @@
              x:Class="E3P201730110111.MainPage">
 
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem 
-            Text="Lista de Pagos" x:Name="ListaPagos"
-            Order="Primary"
-            Priority="0"
-            Command="{Binding ListaCommand}"/>
-
-        
-    </ContentPage.ToolbarItems>
-
     <ScrollView 
         BackgroundColor="#000000">
 
@@ -22,7 +12,7 @@
             <StackLayout>
 
 
-                <Image x:Name="foto" Source="{Binding Imagen}" WidthRequest="200"/>
+                <Image x:Name="foto" Source="{Binding foto_ruta}" WidthRequest="200"/>
 
                 <Button x:Name="Tomar_Foto"  
                         Text="Tomar_Foto" 
@@ -35,7 +25,7 @@
                 <Entry Text="{Binding ID, Mode=TwoWay}" FontSize="18"  TextColor="Black" x:Name="ID" IsVisible="false" />
                 <Label Text="Descripcion" FontSize="18" Padding="10,10,30,5" TextColor="#af95cf"/>
                 <Frame BackgroundColor="#FF9D85FF" CornerRadius="15" HasShadow="False">
-                    <Entry Text="{Binding Desc, Mode=TwoWay}" FontSize="18"  TextColor="Black" x:Name="apel" Keyboard="Default" Placeholder="" PlaceholderColor="Black" Margin="-15" MaxLength="50"/>
+                    <Entry Text="{Binding Descripcion, Mode=TwoWay}" FontSize="18"  TextColor="Black" x:Name="apel" Keyboard="Default" Placeholder="" PlaceholderColor="Black" Margin="-15" MaxLength="50"/>
                 </Frame>
 
                 <Label Text="Monto" FontSize="18" Padding="10,10,30,5" TextColor="#af95cf"/>
@@ -45,7 +35,7 @@
 
                 <Label Text="Fecha" FontSize="18" Padding="10,10,30,5" TextColor="#af95cf"/>
                 <Frame BackgroundColor="#FF9D85FF" CornerRadius="15" HasShadow="False">
-                    <DatePicker FontSize="18"  TextColor="Black" x:Name="dire"  Margin="-15" Date="{Binding Fecha}"/>
+                    <DatePicker FontSize="18"  TextColor="Black" x:Name="dire"  Margin="-15" Date="{Binding Fecha}" MinimumDate="1/1/2000" MaximumDate="1/1/2050"/>
                 </Frame>
 
                 <Label Text="" FontSize="10" Padding="10,10,10,10" TextColor="#af95cf"/>
@@ -56,6 +46,13 @@
                         Margin="70,0,70,0"
                         FontSize="20"
                         Command="{Binding EnviarCommand}"/>
+
+                <Button x:Name="BTN_Lista"  
+                        Text="Ver Lista" 
+                        BackgroundColor="#af95cf" 
+                        Margin="70,0,70,0"
+                        FontSize="20"
+                        Command="{Binding ListaCommand}"/>
 
 
             </StackLayout>

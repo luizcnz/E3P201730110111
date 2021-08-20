@@ -24,11 +24,11 @@ namespace E3P201730110111.ViewModels
         string desc;
         int monto;
         DateTime fecha;
-        byte[] foto;
-        string imagen;
+        byte[] photorecibo;
+        string fotoruta;
 
 
-        public byte[] Foto { get => foto; set { foto = value; } }
+        public byte[] Photo_recibo { get => photorecibo; set { photorecibo = value; } }
 
         public int ID
         {
@@ -36,16 +36,16 @@ namespace E3P201730110111.ViewModels
             set { SetProperty(ref id, value); }
         }
 
-        public string Desc
+        public string Descripcion
         {
             get => desc;
             set { SetProperty(ref desc, value); }
         }
 
-        public string Imagen
+        public string foto_ruta
         {
-            get => imagen;
-            set { SetProperty(ref imagen, value); }
+            get => fotoruta;
+            set { SetProperty(ref fotoruta, value); }
         }
 
         public int Monto
@@ -83,47 +83,35 @@ namespace E3P201730110111.ViewModels
         public async void OnSaveClicked(object obj)
         {
 
-            if (Foto == null || string.IsNullOrEmpty(Desc) || Monto == 0 || Fecha == null)
+            if (Photo_recibo == null || string.IsNullOrEmpty(Descripcion) || Monto == 0 || Fecha == null)
             {
                 await Page.DisplayAlert("Mensaje", "No deben haber campos vacíos", "Ok");
             }
             else
             {
                 await Page.DisplayAlert("Mensaje", "Los Datos se han capturado", "Ok");
-                if (ID==null)
+
+                Int32 resultado = 0;
+                var pago = new Pagos
                 {
-                    Int32 resultado = 0;
-                    var pago = new Pagos
-                    {
-                        Descripcion = Desc,
-                        Monto = Monto,
-                        Fecha = Fecha,
-                        Photo_recibo = Foto,
-                        foto_ruta = Imagen
-                    };
+                    Descripcion = Descripcion,
+                    Monto = Monto,
+                    Fecha = Fecha,
+                    Photo_recibo = Photo_recibo,
+                    foto_ruta = foto_ruta
+                };
 
-                    using (SQLiteConnection conexion = new SQLiteConnection(App.UbicacionDB))
-                    {
-                        conexion.CreateTable<Pagos>();
-                        resultado = conexion.Insert(pago);
-
-                        if (resultado > 0)
-                            Page.DisplayAlert("Aviso", "Adicionado", "Ok");
-                        else
-                            Page.DisplayAlert("Aviso", "Error", "Ok");
-                    }
-                }
-                else
+                using (SQLiteConnection conexion = new SQLiteConnection(App.UbicacionDB))
                 {
-                    
+                    conexion.CreateTable<Pagos>();
+                    resultado = conexion.Insert(pago);
 
-                    SQLiteConnection conexion = new SQLiteConnection(App.UbicacionDB);
-                    var update = conexion.Query<Pagos>($"Update Localizacion SET Descripcion = '" + Desc + "', Monto = '" + Monto + "', Fecha = '" + Fecha + "',Photo_recibo = '" + Desc + "', foto_ruta = '" + Desc + "' WHERE id_pago = '" + ID + "'");
-                    conexion.Close();
-
-                    Page.DisplayAlert("Aviso", "Se ha Actualizado Con Exito", "Ok");
+                    if (resultado > 0)
+                        Page.DisplayAlert("Aviso", "Adicionado", "Ok");
+                    else
+                        Page.DisplayAlert("Aviso", "Error", "Ok");
                 }
-                
+
             }
 
         }
@@ -141,15 +129,36 @@ namespace E3P201730110111.ViewModels
             if (fotoTomada != null)
             {
                 //variable utilizada para almacenar la foto tomada en formado 
-                Foto = null;
+                Photo_recibo = null;
                 MemoryStream memoryStream = new MemoryStream();// creamos un flujo de memoria temporal
 
                 fotoTomada.GetStream().CopyTo(memoryStream);
-                Foto = memoryStream.ToArray();
+                Photo_recibo = memoryStream.ToArray();
 
                 // se muestra la imagen pero aun no se guarda
-                Imagen = fotoTomada.Path;
+                foto_ruta = fotoTomada.Path;
             }
+        }
+
+        public async void UpdateClicked(object obj)
+        {
+
+            if (Photo_recibo == null || string.IsNullOrEmpty(Descripcion) || Monto == 0 || Fecha == null)
+            {
+                await Page.DisplayAlert("Mensaje", "No deben haber campos vacíos", "Ok");
+            }
+            else
+            {
+                await Page.DisplayAlert("Mensaje", "Los Datos se han capturado", "Ok");
+
+                SQLiteConnection conexion = new SQLiteConnection(App.UbicacionDB);
+                var update = conexion.Query<Pagos>($"Update Pagos SET Descripcion = '" + Descripcion + "', Monto = '" + Monto + "', Fecha = '" + Fecha + "',Photo_recibo = '" + Photo_recibo + "', foto_ruta = '" + foto_ruta + "' WHERE id_pago = '" + ID + "'");
+                conexion.Close();
+
+                Page.DisplayAlert("Aviso", "Se ha Actualizado Con Exito", "Ok");
+
+            }
+
         }
     }
 }

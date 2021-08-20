@@ -75,35 +75,55 @@ namespace E3P201730110111.ViewModels
 
             if (x != null)
             {
-                Page.DisplayAlert("Aviso", "" + _yourSelectedItem.Descripcion + " ha sido eliminado de la lista de personas", "Ok");
+                Page.DisplayAlert("Aviso", "" + _yourSelectedItem.Descripcion + " ha sido eliminado de la lista de Pagos", "Ok");
+
+                SQLiteConnection conexion = new SQLiteConnection(App.UbicacionDB);
+                var borrarpersonas = conexion.Query<Pagos>($"Delete FROM Pagos WHERE id_pago = '" + x + "' ");
+                conexion.Close();
             }
             else
             {
                 Page.DisplayAlert("Aviso", "No ha seleccionado ningun elemento para borrar!", "Ok");
             }
 
-            SQLiteConnection conexion = new SQLiteConnection(App.UbicacionDB);
-            var borrarpersonas = conexion.Query<Pagos>($"Delete FROM Pagos WHERE id_pago = '" + x + "' ");
-            conexion.Close();
+            
 
         }
 
         private async void ActCommand()
         {
 
-            var pago = new Pagos
+            string x = Convert.ToString(_yourSelectedItem.id_pago);
+
+
+
+            if (x != null)
             {
-                Descripcion = _yourSelectedItem.Descripcion,
-                Monto = _yourSelectedItem.Monto,
-                Fecha = _yourSelectedItem.Fecha,
-                Photo_recibo = _yourSelectedItem.Photo_recibo,
-                foto_ruta = _yourSelectedItem.foto_ruta
+                Page.DisplayAlert("Aviso", "" + _yourSelectedItem.Descripcion + " ha sido eliminado de la lista de personas", "Ok");
+
+                var pago = new Pagos
+                {
+                    Descripcion = _yourSelectedItem.Descripcion,
+                    Monto = _yourSelectedItem.Monto,
+                    Fecha = _yourSelectedItem.Fecha,
+                    Photo_recibo = _yourSelectedItem.Photo_recibo,
+                    foto_ruta = _yourSelectedItem.foto_ruta
+
+
+                };
+                var datos = new MainPage();
+                datos.BindingContext = pago;
+                await Page.Navigation.PushAsync(datos);
+
+            }
+            else
+            {
+                Page.DisplayAlert("Aviso", "No ha seleccionado ningun elemento para Modificar!", "Ok");
 
                 
-            };
-            var datos = new MainPage();
-            datos.BindingContext = pago;
-            await Page.Navigation.PushAsync(datos);
+            }
+
+            
         }
 
     }
