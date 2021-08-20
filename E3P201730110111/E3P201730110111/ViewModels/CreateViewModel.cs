@@ -73,25 +73,27 @@ namespace E3P201730110111.ViewModels
         public async void OnSaveClicked(object obj)
         {
 
-            if (Foto==null || string.IsNullOrEmpty(Desc) ||  Monto == 0 || string.IsNullOrEmpty(Fecha))
-            {
-                await Page.DisplayAlert("Mensaje", "No deben haber campos vacíos", "Ok");
-            }
-            else
-            {
-                await Page.DisplayAlert("Mensaje", "Los Datos se han capturado", "Ok");
+            //if (Foto==null || string.IsNullOrEmpty(Desc) ||  Monto == 0 || Fecha==null)
+            //{
+            //    await Page.DisplayAlert("Mensaje", "No deben haber campos vacíos", "Ok");
+            //}
+            //else
+            //{
+            //    await Page.DisplayAlert("Mensaje", "Los Datos se han capturado", "Ok");
 
-                var pago = new Pagos
-                {
-                    Descripcion = Desc,
-                    Monto = Monto,
-                    Fecha = Fecha,
-                    Photo_recibo = Foto,
-                    foto_ruta = Imagen
-                };
+            //    var pago = new Pagos
+            //    {
+            //        Descripcion = Desc,
+            //        Monto = Monto,
+            //        Fecha = Fecha,
+            //        Photo_recibo = Foto,
+            //        foto_ruta = Imagen
+            //    };
 
 
-            }
+            //}
+
+            await Page.Navigation.PushAsync(new ListaPagos());
 
         }
 
