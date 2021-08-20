@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="E3P201730110111.MainPage">
+
+    <ScrollView 
+        BackgroundColor="#000000">
+
+
+        <Frame BackgroundColor="#1b1b1b" Margin="30,20,30,0" CascadeInputTransparent="True" CornerRadius="20" BorderColor="#937FFF" >
+            <StackLayout>
+
+
+                <Image x:Name="foto" Source="{Binding Imagen}" WidthRequest="200"/>
+
+                <Button x:Name="Tomar_Foto"  
+                        Text="Tomar_Foto" 
+                        BackgroundColor="#af95cf" 
+                        Margin="70,0,70,0"
+                        FontSize="20" 
+                        Command="{Binding TomarFotoCommand}"
+                        />
+
+
+                <Label Text="Descripcion" FontSize="18" Padding="10,10,30,5" TextColor="#af95cf"/>
+                <Frame BackgroundColor="#FF9D85FF" CornerRadius="15" HasShadow="False">
+                    <Entry Text="{Binding Desc, Mode=TwoWay}" FontSize="18"  TextColor="Black" x:Name="apel" Keyboard="Default" Placeholder="" PlaceholderColor="Black" Margin="-15" MaxLength="50"/>
+                </Frame>
+
+                <Label Text="Monto" FontSize="18" Padding="10,10,30,5" TextColor="#af95cf"/>
+                <Frame BackgroundColor="#FF9D85FF" CornerRadius="15" HasShadow="False">
+                    <Entry Text="{Binding Monto, Mode=TwoWay}" FontSize="18"  TextColor="Black" x:Name="edad" Keyboard="Numeric" Placeholder="" PlaceholderColor="Black" Margin="-15" MaxLength="50"/>
+                </Frame>
+
+                <Label Text="Fecha" FontSize="18" Padding="10,10,30,5" TextColor="#af95cf"/>
+                <Frame BackgroundColor="#FF9D85FF" CornerRadius="15" HasShadow="False">
+                    <DatePicker FontSize="18"  TextColor="Black" x:Name="dire"  Margin="-15" Date="{Binding Fecha}"/>
+                </Frame>
+
+                <Label Text="" FontSize="10" Padding="10,10,10,10" TextColor="#af95cf"/>
+
+                <Button x:Name="BTN_Enviar"  
+                        Text="Enviar Datos" 
+                        BackgroundColor="#af95cf" 
+                        Margin="70,0,70,0"
+                        FontSize="20"
+                        Command="{Binding EnviarCommand}"/>
+
+
+            </StackLayout>
+        </Frame>
+
+    </ScrollView>
+
+</ContentPage>
