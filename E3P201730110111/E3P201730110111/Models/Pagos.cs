@@ -24,5 +24,7 @@ namespace E3P201730110111.Models
 
         [MaxLength(200)]
         public string foto_ruta { get; set; }
+
+
     }
 }

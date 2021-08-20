@@ -22,9 +22,6 @@ namespace E3P201730110111
 
         }
 
-        //private void ListaRecibos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        //{
-        //    Pagos pagos myHouse = sender as House;
-        //}
+       
     }
 }

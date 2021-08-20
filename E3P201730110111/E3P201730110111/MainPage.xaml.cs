@@ -23,7 +23,6 @@ namespace E3P201730110111
         //{
         //    base.OnAppearing();
 
-        //    InitializeComponent();
         //    BindingContext = new CreateViewModel(this);
 
         //}

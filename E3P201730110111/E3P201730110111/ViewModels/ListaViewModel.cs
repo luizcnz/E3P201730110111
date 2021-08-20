@@ -69,17 +69,20 @@ namespace E3P201730110111.ViewModels
         private async void DeleteCommand()
         {
 
-            string x = Convert.ToString(_yourSelectedItem.id_pago);
+            
 
             
 
-            if (x != null)
+            if (_yourSelectedItem != null)
             {
+                string x = Convert.ToString(_yourSelectedItem.id_pago);
                 Page.DisplayAlert("Aviso", "" + _yourSelectedItem.Descripcion + " ha sido eliminado de la lista de Pagos", "Ok");
 
                 SQLiteConnection conexion = new SQLiteConnection(App.UbicacionDB);
                 var borrarpersonas = conexion.Query<Pagos>($"Delete FROM Pagos WHERE id_pago = '" + x + "' ");
                 conexion.Close();
+
+                await Page.Navigation.PushAsync(new MainPage());
             }
             else
             {
@@ -93,13 +96,14 @@ namespace E3P201730110111.ViewModels
         private async void ActCommand()
         {
 
-            string x = Convert.ToString(_yourSelectedItem.id_pago);
+            
 
 
-
-            if (x != null)
+            if (_yourSelectedItem != null)
             {
-                Page.DisplayAlert("Aviso", "" + _yourSelectedItem.Descripcion + " ha sido eliminado de la lista de personas", "Ok");
+                string x = Convert.ToString(_yourSelectedItem.id_pago);
+
+                Page.DisplayAlert("Aviso", "" + _yourSelectedItem.Descripcion + " ha sido seleccionado de la lista de pagos", "Ok");
 
                 var pago = new Pagos
                 {

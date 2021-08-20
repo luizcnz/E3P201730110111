@@ -22,7 +22,7 @@ namespace E3P201730110111.ViewModels
 
         int id;
         string desc;
-        int monto;
+        double monto;
         DateTime fecha;
         byte[] photorecibo;
         string fotoruta;
@@ -48,7 +48,7 @@ namespace E3P201730110111.ViewModels
             set { SetProperty(ref fotoruta, value); }
         }
 
-        public int Monto
+        public double Monto
         {
             get => monto;
             set { SetProperty(ref monto, value); }
