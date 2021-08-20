@@ -3,6 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="E3P201730110111.MainPage">
 
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Text="Lista de Pagos" x:Name="ListaPagos"
+            Order="Primary"
+            Priority="0"
+            Command="{Binding ListaCommand}"/>
+
+        
+    </ContentPage.ToolbarItems>
+
     <ScrollView 
         BackgroundColor="#000000">
 
@@ -21,7 +32,7 @@
                         Command="{Binding TomarFotoCommand}"
                         />
 
-
+                <Entry Text="{Binding ID, Mode=TwoWay}" FontSize="18"  TextColor="Black" x:Name="ID" IsVisible="false" />
                 <Label Text="Descripcion" FontSize="18" Padding="10,10,30,5" TextColor="#af95cf"/>
                 <Frame BackgroundColor="#FF9D85FF" CornerRadius="15" HasShadow="False">
                     <Entry Text="{Binding Desc, Mode=TwoWay}" FontSize="18"  TextColor="Black" x:Name="apel" Keyboard="Default" Placeholder="" PlaceholderColor="Black" Margin="-15" MaxLength="50"/>

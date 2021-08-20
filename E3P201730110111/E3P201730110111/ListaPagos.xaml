@@ -3,10 +3,52 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="E3P201730110111.ListaPagos">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout BackgroundColor="#000000">
+
+
+
+            <ListView x:Name="ListaRecibos" ItemsSource="{Binding ListaPagos}" SelectedItem="{Binding YourSelectedItem, Mode=TwoWay}"  RowHeight="550" BackgroundColor="#000000" SeparatorColor="#8D66F3">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Background="#1b1b1b" Padding="20,10,20,10" >
+
+                                <Image Grid.Row="0"
+                                       x:Name="fotodb" Source="{Binding  foto_ruta}"  />
+
+                                <Label 
+                                       TextColor="Aqua" Text="{Binding id_pago}" IsVisible="False" />
+
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                    <Label Grid.Row="1"  Grid.Column="2"
+                                           TextColor="Aqua" Text="{Binding Descripcion}" FontSize="16"/>
+
+                                    <Label Grid.Row="2" Grid.Column="2"
+                                           TextColor="Aqua" Text="{Binding Monto}" FontSize="16"/>
+
+                                    <Label Grid.Row="3" 
+                                           TextColor="Aqua" Text="{Binding Fecha}"  />
+                                </StackLayout>
+
+                                
+
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <StackLayout Margin="10,0">
+                <Label TextColor="Aqua" Text="Seleccion un elemento" x:Name="seleccionado" HorizontalOptions="Center" FontSize="25"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
+                    <Button  x:Name="Mapa" Text="Modificar" 
+                                            BackgroundColor="#af95cf" Margin="10,0,10,0" FontSize="12" Command="{Binding UpdateCommand}"/>
+
+                    <Button  x:Name="Borrar" Text="Borrar Datos" 
+                                            BackgroundColor="#af95cf" Margin="10,0,10,0" FontSize="12" Command="{Binding BorrarCommand}"/>
+                </StackLayout>
+            </StackLayout>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

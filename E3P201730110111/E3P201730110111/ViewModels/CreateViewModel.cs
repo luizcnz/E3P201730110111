@@ -7,18 +7,20 @@ using Xamarin.Forms;
 using Plugin.Media;
 using System.IO;
 using E3P201730110111.Models;
+using SQLite;
 
 namespace E3P201730110111.ViewModels
 {
     class CreateViewModel : BaseViewModel
     {
+        public Command ListaCommand { get; }        
         public Command TomarFotoCommand { get; }
         public Command EnviarCommand { get; }
 
 
         Page Page;
 
-
+        int id;
         string desc;
         int monto;
         DateTime fecha;
@@ -27,6 +29,13 @@ namespace E3P201730110111.ViewModels
 
 
         public byte[] Foto { get => foto; set { foto = value; } }
+
+        public int ID
+        {
+            get => id;
+            set { SetProperty(ref id, value); }
+        }
+
         public string Desc
         {
             get => desc;
@@ -61,6 +70,7 @@ namespace E3P201730110111.ViewModels
 
             EnviarCommand = new Command(OnSaveClicked);
             TomarFotoCommand = new Command(TomarPhoto);
+            ListaCommand = new Command(VerListaCommand);
         }
 
         private async Task Cargar()
@@ -73,28 +83,54 @@ namespace E3P201730110111.ViewModels
         public async void OnSaveClicked(object obj)
         {
 
-            //if (Foto==null || string.IsNullOrEmpty(Desc) ||  Monto == 0 || Fecha==null)
-            //{
-            //    await Page.DisplayAlert("Mensaje", "No deben haber campos vacíos", "Ok");
-            //}
-            //else
-            //{
-            //    await Page.DisplayAlert("Mensaje", "Los Datos se han capturado", "Ok");
+            if (Foto == null || string.IsNullOrEmpty(Desc) || Monto == 0 || Fecha == null)
+            {
+                await Page.DisplayAlert("Mensaje", "No deben haber campos vacíos", "Ok");
+            }
+            else
+            {
+                await Page.DisplayAlert("Mensaje", "Los Datos se han capturado", "Ok");
+                if (ID==null)
+                {
+                    Int32 resultado = 0;
+                    var pago = new Pagos
+                    {
+                        Descripcion = Desc,
+                        Monto = Monto,
+                        Fecha = Fecha,
+                        Photo_recibo = Foto,
+                        foto_ruta = Imagen
+                    };
 
-            //    var pago = new Pagos
-            //    {
-            //        Descripcion = Desc,
-            //        Monto = Monto,
-            //        Fecha = Fecha,
-            //        Photo_recibo = Foto,
-            //        foto_ruta = Imagen
-            //    };
+                    using (SQLiteConnection conexion = new SQLiteConnection(App.UbicacionDB))
+                    {
+                        conexion.CreateTable<Pagos>();
+                        resultado = conexion.Insert(pago);
 
+                        if (resultado > 0)
+                            Page.DisplayAlert("Aviso", "Adicionado", "Ok");
+                        else
+                            Page.DisplayAlert("Aviso", "Error", "Ok");
+                    }
+                }
+                else
+                {
+                    
 
-            //}
+                    SQLiteConnection conexion = new SQLiteConnection(App.UbicacionDB);
+                    var update = conexion.Query<Pagos>($"Update Localizacion SET Descripcion = '" + Desc + "', Monto = '" + Monto + "', Fecha = '" + Fecha + "',Photo_recibo = '" + Desc + "', foto_ruta = '" + Desc + "' WHERE id_pago = '" + ID + "'");
+                    conexion.Close();
 
+                    Page.DisplayAlert("Aviso", "Se ha Actualizado Con Exito", "Ok");
+                }
+                
+            }
+
+        }
+
+        public async void VerListaCommand(object obj)
+        {
             await Page.Navigation.PushAsync(new ListaPagos());
-
         }
 
         private async void TomarPhoto()

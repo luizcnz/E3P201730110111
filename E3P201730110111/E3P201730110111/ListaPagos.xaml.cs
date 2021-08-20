@@ -1,4 +1,7 @@
-﻿using System;
+﻿using E3P201730110111.Models;
+using E3P201730110111.ViewModels;
+using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +18,13 @@ namespace E3P201730110111
         public ListaPagos()
         {
             InitializeComponent();
+            BindingContext = new ListaViewModel(this);
+
         }
+
+        //private void ListaRecibos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        //{
+        //    Pagos pagos myHouse = sender as House;
+        //}
     }
 }
